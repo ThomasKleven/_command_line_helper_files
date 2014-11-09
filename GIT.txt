@@ -1,0 +1,347 @@
+<!-- git auto completion ------------------------------------ -->
+git auto completion
+
+These are the steps that need to be done to install the ness code to add the auto completion files
+
+cd ~      go to the user dir
+
+Download the files 
+curl -OL https://github.com/git/git/raw/master/contrib/completion/git-completion.bash 
+
+move the file to the right folder
+ mv ~/git-completion.bash ~/.git-completion.bash 
+ 
+go to the bash profile 
+nano .bash_profile
+
+load the bash files 
+if [ -f ~/.git-completion.bash ]; then 
+        source ~/.git-completion.bash
+fi
+
+<!-- git config ------------------------------------------- -->
+git config
+
+The first thing that you want to add a user name so that GIT will know who you are when working on a team this is important step
+
+System 
+git config --system
+
+User 
+git config --global                                 Tells GIT to go to the Global settings
+git config --global user.name "Thomas D Keven"              Sets the global user name
+git config --global user.email "thomasdkleven@gmail.com"   Sets the global email
+git config --list                            Shows all the configuration settings 
+
+cd ~            This takes you to your home directory
+ls -la            This lists your files that you set up    
+
+Project 
+git config 
+
+git config --global core.editor "Sublime Text2.app -w"       This configs what text editor you are using
+git config --global color.ui true   This sets it so that GIT colors the output of the code
+
+cat .gitconfig    This gives you your settings for the GIT program
+
+<!-- git ignore file ----------------------------------------------- --> 
+save the text below into the root of the website as .getignore
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+ 
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+ 
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+ 
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.sass-cache*
+
+
+
+
+<!—basics of the remote repository ----------------------------------------------- --> 
+push: Pushing Changes to the Server
+fetch: Fetching the changes from the Server
+merge: Merge the two together
+ 
+
+
+<!-- git init ----------------------------------------------- --> 
+git init
+
+in this tut we cover how to set up the git project
+
+go to the home directory
+cd ~
+
+home dir/Desktop/first-git-project
+cd Desktop/first-git-project
+
+initialize git on this folder 
+git init
+
+checks the folder 
+ls 
+
+shows all of the files in the folder and hidden files
+ls -la 
+
+this shows all of the helper files that git uses to track your changes
+DONT CHANGE THIS ONLY CHANGE THE RB CONFIG FILE
+ls -la .git 
+
+
+
+<!-- git add --------------------------------------------------- -->
+git add index.hm    this will stage only the files specified into the staging area
+git add .   use this method if there are more than one file to commit
+
+
+
+<!-- git commit --------------------------------------------------- -->
+git commit -m "initialize the changes that I made"
+in this tut we cover how to commit your changes 
+
+the . will tell git to commit all changes in the folder that you are in 
+MAKE SURE YOU ARE IN THE RIGHT FOLDER 
+git add .
+
+this will tell git to commit all changes to the memory 
+git commit -m "initialize the changes that I made"
+
+
+Notes:
+when making messages make sure that you use less than 50 char 
+
+optionally you ca follow up with a blank line that a more complete description 
+
+We can use a text editor to make these messages but only limit to 75 char
+
+never use past tense when making messages 
+fix bug or fixes bug but not fixed bug
+
+bullet points are usually asterisks or hyphens 
+
+can add "ticket tracking numbers" from bugs or support requests
+
+suggestions
+can develop shorthand for your organization 
+"[css,js]"   was messing with the css and js
+"bugfix:" I fixed a bug  
+"#38405"    what support ticket that we fixed
+
+
+
+<!-- viewing diff ------------------------------------ -->
+git diff 
+
+When you want to check what changes that were made to your files from one commit to another you can use the git diff command
+
+
+
+<!-- viewing commit logs ------------------------------------ -->
+git log
+
+in this tut there are tips and theory on how to use comments 
+
+git log
+show me the log information 
+
+q to quit the log
+
+
+
+<!-- git rm  Removing files ------------------------------------ -->
+git rm delete.htm 
+git status
+git commit -m “Deleted the delete.htm file”
+
+
+
+<!-- git mv Moving and renaming files --------------------------------  -->
+Changing the name:
+git mv Desktop/my_file.htm Desktop/my_files.htm
+
+Moving the file:
+git mv Desktop/my_file.htm  Desktop/htm/my_file.htm 
+
+git mv will find the file that you listed to be renamed then replace that file with the name of the second file indicated you have to add the file location for GIT to understand where the file is located.
+
+== VERY IMPORTANT —-
+git add --all  this command will find the changes that you made manually and update the repository to reflect any manual deletions of files in the system you must use this command or GIT will still try to find and track the deleted files
+
+
+
+<!-- git checkout --------------------------------  -->
+git checkout —- index.htm
+
+to target and change the working directory that you want to replace the file in use the —- symbol before the name of the file
+
+the above code says to find the copy of the index.hm file and replace my version with the one that I have saved in the directory 
+
+
+
+<!-- git checkout (reverting to a previous state )  --------------------------------  -->
+git checkout f319ba89430baf —- index.htm
+git status 	   checks what files are staged
+git diff —staged   shows the difference between versions
+git commit -m “f319ba89430baf reverted to previous state”
+
+or to forget the change 
+
+git reset HEAD index.htm 
+git checkout —- index.htm
+git status     now your directory should be clean
+
+really screwed up need to revert the file to the old state 
+1. checkout the file that you want  copy (SHA)code from the log
+
+2. checkout the SHA logged version the use double dash and the name of the file that you want to replace with that checked out file
+
+3. BEST PRACTICE IS TO refer to the SHA in your commits so that others can see what you were trying to do.
+
+
+
+<!-- git revert (reverting to a previous state )  --------------------------------  -->
+git log      find the SHA code that you want to revert to 
+git revert f319ba89430baf   after running 
+git status   should be clean
+git log      this will show you 
+
+
+
+<!-- git reset HEAD file_name Un staging files --------------------------------  -->
+git reset HEAD index.hm
+
+if you have staged a file then realize that you need to unstage it to work on some more changes before committing the file then use the command above
+
+
+
+<!-- Branching --------------------------------  -->
+git branch    will check how many branches you have
+git branch navigation_idea  this will add a branch
+
+
+
+<!-- Switching to a new branch --------------------------------  -->
+git checkout navigation_idea  switches to the branch we created and changes in editor
+git checkout master  switches back to the master branch and changes to the branch in editor
+
+git log —-oneline will show you just changes on the one branch
+
+
+
+<!-- comparing branches --------------------------------  -->
+git diff master..navigation_idea
+
+1.git diff checks out the changes between the two files targeted
+2. remember to put the two .. between the two files  
+
+
+
+<!-- renaming branches --------------------------------  -->
+git branch -m navigation_idea footer_idea
+git branch   this will check the names of all branches
+
+1. run the git branch and list the file name that you want to change 
+2. add a space between the old name and the new name that you want to switch too
+
+
+
+<!-- deleting branches --------------------------------  -->
+git branch -d name_of_file  this will delete the file that you list 
+or
+git branch —delete name_of_file  this will delete the file that you list 
+git branch  this will show all of the branches
+
+1. You can’t delete the branch that you are on you have to be on a different one
+2. If you make changes but did not merge the change then when you run the delete command it will notify you that you did not merge changes
+
+git branch -D name_of_file   this will delete the file that you that merges have not been completed 
+
+
+
+<!-- Merging branch --------------------------------  -->
+git checkout master         this is the file that we want the change to effect
+git merge navigation_idea   this file now will be merged with the master
+
+1. from the branch that you want to receive the change merge the change file into that branch
+
+2. git merge name_of_file     command this will merge the two branches
+
+3. git branch —merged         This will tell you what two files merged together 
+
+
+
+
+<!-- git help ---------------------------------------- -->
+git —-help
+
+git --version      tells the version of git 
+git --help        brings ip the help files
+
+The most commonly used git commands are:
+   add        Add file contents to the index
+   bisect     Find by binary search the change that introduced a bug
+   branch     List, create, or delete branches
+   checkout   Checkout a branch or paths to the working tree
+   clone      Clone a repository into a new directory
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   fetch      Download objects and refs from another repository
+   grep       Print lines matching a pattern
+   init       Create an empty Git repository or reinitialize an existing one
+   log        Show commit logs
+   merge      Join two or more development histories together
+   mv         Move or rename a file, a directory, or a symlink
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+   rebase     Forward-port local commits to the updated upstream head
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+   show       Show various types of objects
+   status     Show the working tree status
+   tag        Create, list, delete or verify a tag object signed with GPG
+   
+  
+  the git help command will give you info about the command they are help files that tell you how the commands work
+  git help add
+
+
+
+
+
+
+
+
+
