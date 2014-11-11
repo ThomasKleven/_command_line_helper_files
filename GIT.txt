@@ -19,6 +19,8 @@ if [ -f ~/.git-completion.bash ]; then
         source ~/.git-completion.bash
 fi
 
+
+
 <!-- git config ------------------------------------------- -->
 git config
 
@@ -43,6 +45,8 @@ git config --global core.editor "Sublime Text2.app -w"       This configs what t
 git config --global color.ui true   This sets it so that GIT colors the output of the code
 
 cat .gitconfig    This gives you your settings for the GIT program
+
+
 
 <!-- git ignore file ----------------------------------------------- --> 
 save the text below into the root of the website as .getignore
@@ -89,11 +93,75 @@ Thumbs.db
 
 
 
-<!—basics of the remote repository ----------------------------------------------- --> 
+<!— Basics of setting up a remote repository ----------------------------------------------- --> 
+create the git repository on GIT hub 
+git remote   If you have things setup on your remote this will show you all of the remote repos
+git remote add origin https://github.com/ThomasKleven/test.git   most people use the origin for the name of the first init 
+
+git remote   this will test where you are on the remote server
+git remote -v   this will give you the commands to use to fetch and push from the server
+
+git remote rm origin   this will remove the origin remote that was created
+
+
+
 push: Pushing Changes to the Server
 fetch: Fetching the changes from the Server
 merge: Merge the two together
+
+
  
+<!— Creating a remote repository ----------------------------------------------- --> 
+git push -u origin master   This will push your master branch to the origin repository on the remote  
+and keep track of the remote branch
+git branch -r   this will show you all the remote repo
+git branch -a   will show you both the local and remote repo
+
+
+
+<!— Cloning a remote repository ----------------------------------------------- --> 
+find the path that you want to contrib to 
+git clone https://github.com/ThomasKleven/test.git   by default the name will be test in this case
+
+
+
+<!— Tracking a remote repository ----------------------------------------------- --> 
+
+
+git log —oneline   Shows the local changes
+git log —oneline/orgin/master   this will show the log for the origin/master on the remote
+
+git diff master..origin/master   this will show both the local file and the remote differences
+
+
+
+<!— Pushing changes to the remote repository ----------------------------------------------- --> 
+git push   if you are tracking the online repository then you just have to push your changes
+
+
+
+<!— Fetching changes from the remote repository ----------------------------------------------- --> 
+git fetch origin   This command will fetch the origin repo from the remote repository 
+git fetch   You can use this one command if you are only watching one remote repo
+
+
+1. Fetch before you work 
+2. Fetch before you push 
+3. Fetch often
+
+Fetch will just bring down the changes from the remote it will not change the master files on your local machine to do this you have to merge the online repo with the local repo 
+
+
+
+<!— Merging changes from the remote repository ----------------------------------------------- --> 
+git fetch   this will fetch the changes from the remote server do this first
+git branch -a   this checks what branches you are watching 
+git diff origin/master..master   this will show the difference between the two 
+git merge origin/master   this will merge the files from the origin/master to the master
+
+git pull   this command will do both a fetch and a merge all in one 
+BEFORE using this option make sure that you know what you are doing because if you get an error you need to know how to fix it
+
 
 
 <!-- git init ----------------------------------------------- --> 
@@ -251,6 +319,8 @@ if you have staged a file then realize that you need to unstage it to work on so
 git branch    will check how many branches you have
 git branch navigation_idea  this will add a branch
 
+git checkout -b name_of_branch   This command will create a branch named name_of_branch and switch to that branch
+
 
 
 <!-- Switching to a new branch --------------------------------  -->
@@ -301,6 +371,59 @@ git merge navigation_idea   this file now will be merged with the master
 
 3. git branch —merged         This will tell you what two files merged together 
 
+
+
+<!-- Fast Forward vs. True Merge --------------------------------  -->
+git merge —-no-ff branch   don't do a fast-forward, make a new commit with the commit message anyway the main reason you'd want to do this is if you wanted some kind of documentation of the fact that you did do this merge
+
+git merge —-ff-only branch    If you can't do a fast- forward merge, then just abort
+
+
+
+<!-- Merging Conflicts  --------------------------------  -->
+This video shows how to manually use the text editor in order to find conflicts it’s more better if you just use a GIT client for this operation
+
+
+
+<!-- Saving changes in the stash --------------------------------  -->
+git stash save “Your message goes here”
+
+The stash is a place where we can store changes temporarily without having to commit them to the repository. 
+It's a lot like putting something into a drawer to save it for later. The stash is not part of the repository, 
+the staging index or the working directory, it's a special fourth area in Git, separate from the others.
+They're still a snapshot of the changes that we were in the process of making, just like a commit is.
+But they dont have a SHA associated with them.
+
+you can use it any time you want to just take some stuff and shove it in a drawer. 
+The time that you'll probably use it most often when you need to switch branches, you have some changes, 
+you're not quite ready to turn them into a commit yet, so we've got stash them instead.
+
+
+
+<!-- Viewing changes in the stash --------------------------------  -->
+git stash list   This will show all of the stashes that you have and the message associated with it
+
+git stash show -p stash@{0}   the show -p will bring up the differences within the command line so that you can inspect them
+the stash@{0} is the reference to the name of the stash that you need to use in order to parse the info.
+
+
+
+
+<!-- Retrieve changes in the stash --------------------------------  -->
+git stash pop stash@{0}    This will show you the information of the stash but also pop the info out so that it is no longer in the stash
+git stash apply stash@{0}  This will show you the information in the stash but leave a copy within the stash
+
+
+apply: Usually if you need to apply the changes that you have stored in the stash on one of the branches then switch to another branch 
+and apply the same changes to that one this is when you want to use the apply command instead
+
+
+
+<!-- Deleting stashed changes --------------------------------  -->
+git stash list   this will show you all of the stashes that you have stored
+
+git stash drop stash@{0}   this will drop the specified stash  
+git stash clear   this will get rid of all of the stashes 
 
 
 
